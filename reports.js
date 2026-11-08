@@ -1,0 +1,5 @@
+/* التقارير */
+Pages.reports=function(){return ph('التقارير','Reports',`<button class="btn" data-a="pdf">Export PDF</button><button class="btn g" data-a="csv">Export Excel</button>`)+`<div class="tools"><select id="rt">${[['diag','تقرير أسباب النجاح والفشل + النصائح'],['perf','Campaign Performance Report'],['budget','Budget Report'],['platform','Platform Comparison Report'],['monthly','Monthly Report']].map(([v,l])=>`<option value="${v}" ${S.rt===v?'selected':''}>${l}</option>`).join('')}</select><label>من<input type="date" id="rf" value="${S.rf}"></label><label>إلى<input type="date" id="rto" value="${S.rto}"></label></div><div class="card" id="rp">${repHTML()}</div><p class="mut sm no-print">Excel = ملف CSV بيتفتح في Excel. PDF من نافذة الطباعة (اختار Save as PDF).</p>`};
+document.addEventListener('input',e=>{if(e.target.id==='rf'||e.target.id==='rto'){S[e.target.id]=e.target.value;$('#rp').innerHTML=repHTML()}});
+document.addEventListener('change',e=>{if(e.target.id==='rt'){S.rt=e.target.value;$('#rp').innerHTML=repHTML()}});
+boot('reports');

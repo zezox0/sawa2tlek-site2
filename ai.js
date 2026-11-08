@@ -1,0 +1,8 @@
+/* المساعد الذكي */
+Pages.ai=function(){return ph('مساعد التسويق الذكي','AI Marketing Assistant')+`<div class="chips">${[['تحليل الحملات','Campaign Analysis'],['توصيات الميزانية','Budget Recommendations'],['رؤى الأداء','Performance Insights'],['مقارنة الحملات','Campaign Comparison'],['تقرير بالذكاء الاصطناعي','AI Generated Report']].map(([a,b],i)=>`<button class="chip" data-a="ask" data-q="${['analysis','budget','insight','compare','report'][i]}">${a}</button>`).join('')}</div>`+
+card('المحادثة',`<div class="chat" id="chat">${chatHTML()}</div><div class="chips">${['What is my best performing campaign?','Why is my CPC increasing?','Which campaign should I optimize?','How can I reduce my marketing costs?'].map(q=>`<button class="chip" data-a="ask" data-q="${q}">${q}</button>`).join('')}</div><form class="cf" id="cf"><input id="ci" placeholder="اكتب سؤالك بالعربي أو English" autocomplete="off"><button class="btn">إرسال</button></form><p class="mut sm">الردود محسوبة من بيانات النظام الحالية (نسخة تجريبية بدون نموذج ذكاء اصطناعي حقيقي).</p>`)};
+const say=(q,shown)=>{S.chat.push({r:'u',t:shown||q},{r:'a',t:ai(q)});$('#chat').innerHTML=chatHTML();$('#chat').scrollTop=1e5};
+document.addEventListener('click',e=>{const a=e.target.closest('[data-a=ask]');if(!a)return;const q=a.dataset.q,m={analysis:'تحليل الحملات insight',budget:'توصيات الميزانية budget',insight:'رؤى الأداء insight',compare:'مقارنة الحملات',report:'تقرير'};
+if(m[q])say(m[q],a.textContent);else say(q)});
+document.addEventListener('submit',e=>{if(e.target.id!=='cf')return;e.preventDefault();const q=$('#ci').value.trim();if(!q)return;say(q);$('#ci').value=''});
+boot('ai');
